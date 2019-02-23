@@ -24,3 +24,7 @@ Route::get('/', function () {
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource('rooms', 'RoomController');
+});
