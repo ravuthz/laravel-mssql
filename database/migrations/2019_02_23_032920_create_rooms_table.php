@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMrmRoomsTable extends Migration
+class CreateRoomsTable extends Migration
 {
 
     /**
@@ -14,7 +14,7 @@ class CreateMrmRoomsTable extends Migration
     public function up()
     {
         Schema::create('mrm_rooms', function (Blueprint $table) {
-            $table->integer('room_id', true);
+            $table->bigIncrements('room_id', true);
             $table->string('room_name', 50)->nullable();
             $table->string('room_type', 50)->nullable();
             $table->integer('num_member')->nullable();
