@@ -27,4 +27,5 @@ Route::post('/logout', 'AuthController@logout');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('rooms', 'RoomController');
+    Route::apiResource('schedules', 'ScheduleController');
 });
