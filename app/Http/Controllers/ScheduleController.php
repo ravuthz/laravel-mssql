@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ScheduleCollection;
+use App\Http\Resources\ScheduleResource;
 use App\Schedule;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -34,7 +37,19 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return Schedule::paginate(20);
+
+        $size = request('size', 20);
+        $date = request('date', date('dmY')); // 28022019 26052015 29052015 05062015
+        $parseDate = Carbon::createFromFormat('dmY', $date);
+
+        $schedules = Schedule::with(['room' => function ($query) {
+            $query->select('room_id', 'room_name');
+        }])
+            ->where('status', '>=', 5)
+            ->whereDate('start_date', '<=', $parseDate)
+            ->whereDate('end_date', '>=', $parseDate)
+            ->paginate($size);
+        return new ScheduleCollection($schedules);
     }
 
     /**
@@ -48,7 +63,8 @@ class ScheduleController extends Controller
         $data = $request->validate($this->validation);
         $data['created_by'] = Auth::user()->id;
         $data['modified_by'] = Auth::user()->id;
-        return Schedule::create($data);
+        $schedule = Schedule::create($data);
+        return new ScheduleResource($schedule);
     }
 
     /**
@@ -59,7 +75,8 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        return Schedule::findOrFail($id);
+        $schedule = Schedule::findOrFail($id);
+        return new ScheduleResource($schedule);
     }
 
     /**
@@ -75,7 +92,7 @@ class ScheduleController extends Controller
         $data = $request->validate($this->validation);
         $data['modified_by'] = Auth::user()->id;
         $schedule->update($data);
-        return $schedule;
+        return new ScheduleResource($schedule);
     }
 
     /**

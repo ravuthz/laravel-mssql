@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 use App\Room;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,7 +20,8 @@ class RoomController extends Controller
 
     private function findOrFail($id)
     {
-        return Room::where('isdeleted', 0)->findOrFail($id);
+        $room = Room::where('isdeleted', 0)->findOrFail($id);
+        return new RoomResource($room);
     }
 
     /**
@@ -28,7 +31,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return Room::where('isdeleted', 0)->paginate(20);
+        $rooms = Room::with('schedules')->where('isdeleted', 0)->paginate(20);
+        return new RoomCollection($rooms);
     }
 
     /**

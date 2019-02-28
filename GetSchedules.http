@@ -1,0 +1,15 @@
+### Get Schedule List
+GET http://5d587186.ngrok.io/api/schedules?date=05062015
+Accept-Language: en-US
+Content-Type: application/json
+Security-Code: helloworld
+
+
+### Get Schedule Details
+GET http://5d587186.ngrok.io/api/schedules/20150526001
+Accept-Language: en-US
+Content-Type: application/json
+Security-Code: helloworld
+
+
+## http://5d587186.ngrok.io => http://localhost:8000
