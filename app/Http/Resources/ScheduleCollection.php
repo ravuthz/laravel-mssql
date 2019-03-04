@@ -17,6 +17,7 @@ class ScheduleCollection extends ResourceCollection
     {
         return $this->collection->transform(function ($item) {
             return [
+                "event_id" => $item->event_id,
                 "subjects" => $item->subjects,
                 "start_date" => $item->start_date,
                 "end_date" => $item->end_date,
