@@ -60,3 +60,20 @@ git clone https://github.com/ravuthz/laravel-mssql.git
 	Migrated:  2019_02_23_032920_create_rooms_table
 
 	```
+    NOTE: This is for development only. If you don't have table securities just create by sql below:
+    NOTE: Then is will generte 2 record of security code for sample login:
+
+    ```
+    CREATE  TABLE laravel_jwt.dbo.securities
+    (
+        id int IDENTITY(1,1) NOT  NULL,
+        code nvarchar(MAX) NULL,
+        created_at datetime  NULL,
+        updated_at datetime  NULL,
+        CONSTRAINT PK__securiti__3213E83F42B4F31F PRIMARY  KEY (id)
+    ) GO;
+
+    INSERT  INTO laravel_jwt.dbo.securities (code,created_at,updated_at) VALUES
+    ('helloworld', '2019-02-28 15:41:21.210', '2019-02-28 15:41:21.210'),
+    ('welcomehere', '2019-02-28 15:41:21.940', '2019-02-28 15:41:21.940');
+    ```
