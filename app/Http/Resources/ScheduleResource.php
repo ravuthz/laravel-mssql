@@ -16,6 +16,7 @@ class ScheduleResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "event_id" => $this->event_id,
             "subjects" => $this->subjects,
             "start_date" => $this->start_date,
             "end_date" => $this->end_date,
