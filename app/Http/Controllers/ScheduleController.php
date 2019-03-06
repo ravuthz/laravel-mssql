@@ -38,7 +38,7 @@ class ScheduleController extends Controller
     public function index()
     {
 
-        $size = request('size', 20);
+        $size = request('size', 50);
         $date = request('date', date('dmY')); // 28022019 26052015 29052015 05062015
         $parseDate = Carbon::createFromFormat('dmY', $date);
 
@@ -48,7 +48,7 @@ class ScheduleController extends Controller
             ->where('status', '>=', 5)
             ->whereDate('start_date', '<=', $parseDate)
             ->whereDate('end_date', '>=', $parseDate)
-            ->paginate($size);
+            ->limit($size)->get();
         return new ScheduleCollection($schedules);
     }
 
