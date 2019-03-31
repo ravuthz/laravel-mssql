@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Security;
+use App\User;
 use Closure;
 
 class VerifyCode
@@ -17,8 +17,9 @@ class VerifyCode
     public function handle($request, Closure $next)
     {
         $code = $request->header('Security-Code');
-        if (!Security::whereCode($code)->exists()) {
-            return abort(401, 'Code is invalid');
+
+        if (!User::where('token', $code)->exists()) {
+            return abort(401, 'Security-Code is invalid');
         }
 
         return $next($request);
