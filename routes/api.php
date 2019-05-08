@@ -20,15 +20,15 @@
 // });
 
 // Route::post('/register', 'AuthController@register');
-// Route::post('/login', 'AuthController@login');
-// Route::post('/logout', 'AuthController@logout');
+Route::post('/login', 'AuthController@login');
+Route::post('/logout', 'AuthController@logout');
 
 // Route::group(['middleware' => 'has.code'], function () {
 //     Route::apiResource('rooms', 'RoomController');
 //     Route::apiResource('schedules', 'ScheduleController');
 // });
 
-Route::group(['middleware' => 'has.code'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     Route::get('schedules', 'ScheduleController@index');
-    Route::get('schedules/{id}', 'ScheduleController@show');
+// Route::get('schedules/{id}', 'ScheduleController@show');
 });

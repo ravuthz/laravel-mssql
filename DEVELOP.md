@@ -37,3 +37,13 @@ php artisan make:resource RoomCollection
 php artisan make:resource ScheduleResource
 php artisan make:resource ScheduleCollection
 ```
+
+- admin create account by email and generate password sent to client
+- admin can reset password for client
+- client can change password, redirect from email body
+
+- mobile login system by email and password get token after success login to api
+
+- one email can limit to login api (2)
+- api have only list schedules
+
