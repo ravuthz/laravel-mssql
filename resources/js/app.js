@@ -5,24 +5,30 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
 // window.Vue = require('vue');
 
+// import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
 import VeeValidate from 'vee-validate';
+import BootstrapVue from 'bootstrap-vue';
 
-Vue.use(BootstrapVue);
+import store from './store';
+import router from './router';
+
+import Index from './components/Index.vue';
 
 Vue.use(VeeValidate, {
     inject: true,
     // Important to name this something other than 'fields'
     fieldsBagName: 'veeFields'
 });
+
+Vue.use(BootstrapVue);
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,6 +38,7 @@ Vue.use(VeeValidate, {
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
+// Autoload Vue Components this directory
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
@@ -44,5 +51,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  */
 
 const app = new Vue({
-    el: '#app'
-});
+    store,
+    router,
+    render: h => h(Index)
+}).$mount("#app");

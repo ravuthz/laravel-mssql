@@ -53,5 +53,9 @@ class User extends Authenticatable implements JWTSubject
         if (!empty($password)) {
             $this->attributes['password'] = bcrypt($password);
         }
-    }   
+    }
+
+    public function logs() {
+        return $this->hasMany(UserLogs::class);
+    }
 }

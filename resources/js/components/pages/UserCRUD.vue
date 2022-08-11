@@ -97,6 +97,8 @@
 <script>
 import get from "lodash/get";
 
+import axios from "../../axios";
+
 export default {
   data() {
     return {
@@ -220,21 +222,21 @@ export default {
           switch (this.itemAction) {
             case "create":
               axios
-                .post(baseUrl + "/users", this.form)
+                .post("/users", this.form)
                 .then(this.handleResponse)
                 .catch(this.handlerError);
               break;
 
             case "update":
               axios
-                .put(baseUrl + "/users/" + this.form.id, this.form)
+                .put("/users/" + this.form.id, this.form)
                 .then(this.handleResponse)
                 .catch(this.handlerError);
               break;
 
             case "delete":
               axios
-                .delete(baseUrl + "/users/" + this.form.id, this.form)
+                .delete("/users/" + this.form.id, this.form)
                 .then(this.handleResponse)
                 .catch(this.handlerError);
               break;
@@ -272,7 +274,7 @@ export default {
         filter: get(ctx, "filter", "")
       };
       return axios
-        .get(baseUrl + "/users", { params })
+        .get("/users", { params })
         .then(res => {
           const items = res.data.data;
           this.totalRows = res.data.total;
